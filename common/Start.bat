@@ -53,7 +53,7 @@ echo    ########################################################################
 ECHO.
 pause
 color 2
-goto :startui
+goto startui
 
 
 :startui
@@ -96,7 +96,7 @@ if %S%==6 goto reb
 if %S%==0 goto exit
 echo.
 echo Invalid Input? Try again!...
-pause goto :startui
+pause goto startui
 
 
 :Bootloadercls
@@ -146,7 +146,7 @@ pause
 @adb shell rm /emmc/update.zip
 @adb reboot
 echo Done !
-goto :startui
+goto startui
 
 :shelll
 cls
@@ -189,7 +189,7 @@ if %S%==1 @adb reboot goto :startui
 if %S%==2 @adb reboot recovery goto :startui
 if %S%==3 @adb reboot bootloader goto :startui
 echo Invalid Input? Try again!...
-pause goto :reb
+pause goto reb
 
 
 
