@@ -47,7 +47,7 @@ echo    ##                           BBBBBi     MBBBBj                          
 echo    ##                             ii         ii                             ## 
 echo    ##                                                                       ## 
 echo    ##                                                                       ##
-echo    ##                Lg L Toolkit    by linuxx & theOwner997                ##
+echo    ##              Lg L Toolkit    by linuxx and theOwner997                ##
 echo    ##                                                                       ##
 echo    ###########################################################################
 ECHO.
@@ -99,7 +99,18 @@ echo Invalid Input? Try again!...
 pause goto :startui
 
 
-:Bootloader
+:Bootloadercls
+SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
+SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+SET status= $adb get-state
+SET serial= $adb get-serialno
+echo ###################################################################
+echo Device:                       $device #
+echo Android version:              $Os #
+echo Status:                       $status #
+echo Serial Number:                $serial #
+echo ###################################################################
+echo.
 if %device==e400 echo Your lg l3 is already Unlocked
 if %device==e610 C:\Lg-l5\Bootloader\unlock.bat
 if %device==p700 C:\Lg-l7\bootloader\unlock.bat
@@ -137,4 +148,22 @@ pause
 echo Done !
 goto :startui
 
+:shelll
+cls
+SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
+SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+SET status= $adb get-state
+SET serial= $adb get-serialno
+echo ###################################################################
+echo Device:                       $device #
+echo Android version:              $Os #
+echo Status:                       $status #
+echo Serial Number:                $serial #
+echo ###################################################################
+echo.
+echo Shell
+echo.
+echo Press ctrl +c or exit when you've done!
+adb shell
+echo exit
 
