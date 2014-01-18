@@ -47,7 +47,7 @@ echo    ##                           BBBBBi     MBBBBj                          
 echo    ##                             ii         ii                             ## 
 echo    ##                                                                       ## 
 echo    ##                                                                       ##
-echo    ##                Lg L Toolkit    by linuxx & theOwner977                ##
+echo    ##                Lg L Toolkit    by linuxx & theOwner997                ##
 echo    ##                                                                       ##
 echo    ###########################################################################
 ECHO.
@@ -57,10 +57,10 @@ goto :look
 
 
 :startui
-@SET device=
-@SET Os=
-@SET status=
-@SET serial=
+SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
+SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+SET status= $adb get-state
+SET serial= $adb get-serialno
 
 
 echo ###################################################################
@@ -99,17 +99,42 @@ echo Invalid Input? Try again!...
 pause goto :startui
 
 
+:Bootloader
+if %device==e400 echo Your lg l3 is already Unlocked
+if %device==e610 C:\Lg-l5\Bootloader\unlock.bat
+if %device==p700 C:\Lg-l7\bootloader\unlock.bat
+
+:Root
+cls
+SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
+SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+SET status= $adb get-state
+SET serial= $adb get-serialno
+echo ###################################################################
+echo Device:                       $device #
+echo Android version:              $Os #
+echo Status:                       $status #
+echo Serial Number:                $serial #
+echo ###################################################################
+echo.
+echo Root Phone
+echo.
+@adb reboot recovery
+echo Waiting for device...
+@adb wait-for-device
+SET status= $adb get-state
+@adb push root/update.zip /sdcard/
+@adb push root/update.zip /emmc/
+echo Now Select Install zip from sdcard
+echo Choose Install Update.zip
+pause
+echo Wait until it works...
+echo Press any key ONLY when it finish (It will say Done!)
+pause
+@adb shell rm /sdcard/update.zip
+@adb shell rm /emmc/update.zip
+@adb reboot
+echo Done !
+goto :startui
 
 
-
-
-
-
-
-
-
-
-
-
-
-@
