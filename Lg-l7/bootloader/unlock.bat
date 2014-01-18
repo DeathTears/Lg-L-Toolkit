@@ -1,5 +1,6 @@
 @echo off
 cls
+adb push emmc_appsboot.bin ecc
 @SET ADB=c:\l7cwm\adb
 %ADB% wait-for-device
 %ADB% push emmc_appsboot.bin /data/local/tmp/emmc_appsboot.bin
