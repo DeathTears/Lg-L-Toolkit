@@ -57,19 +57,17 @@ goto startui
 
 
 :startui
-SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
-SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
-SET status= $adb get-state
-SET serial= $adb get-serialno
-
-
+cls
 echo ###################################################################
-echo Device:                       $device #
-echo Android version:              $Os #
-echo Status:                       $status #
-echo Serial Number:                $serial #
-echo ###################################################################
-echo.
+echo Device:
+adb shell cat /system/build.prop | grep "ro.product.device"
+echo Android version:
+adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################echo.
 echo.
 echo Choose What Do you Want to Do
 echo.
@@ -100,15 +98,16 @@ pause goto startui
 
 
 :Bootloadercls
-SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
-SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
-SET status= $adb get-state
-SET serial= $adb get-serialno
+cls
 echo ###################################################################
-echo Device:                       $device #
-echo Android version:              $Os #
-echo Status:                       $status #
-echo Serial Number:                $serial #
+echo Device:
+adb shell cat /system/build.prop | grep "ro.product.device"
+echo Android version:
+adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
 echo ###################################################################
 echo.
 if %device==e400 echo Your lg l3 is already Unlocked
@@ -117,15 +116,15 @@ if %device==p700 C:\Lg-l7\bootloader\unlock.bat
 
 :Root
 cls
-SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
-SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
-SET status= $adb get-state
-SET serial= $adb get-serialno
 echo ###################################################################
-echo Device:                       $device #
-echo Android version:              $Os #
-echo Status:                       $status #
-echo Serial Number:                $serial #
+echo Device:
+adb shell cat /system/build.prop | grep "ro.product.device"
+echo Android version:
+adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
 echo ###################################################################
 echo.
 echo Root Phone
