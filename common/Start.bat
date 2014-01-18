@@ -53,7 +53,7 @@ echo    ########################################################################
 ECHO.
 pause
 color 2
-goto :look
+goto :startui
 
 
 :startui
@@ -86,7 +86,7 @@ echo.
 echo.
 echo 0-Exit
 echo.
-set /p S= PLEASE SELECT AN OPTION NOW :
+set /p S= ? :
 if %S%==1 goto Bootloader
 if %S%==2 goto sync
 if %S%==3 goto Root
@@ -163,7 +163,33 @@ echo ###################################################################
 echo.
 echo Shell
 echo.
-echo Press ctrl +c or exit when you've done!
+echo Type exit when you've done!
 adb shell
-echo exit
+
+:reb
+cls
+SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
+SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+SET status= $adb get-state
+SET serial= $adb get-serialno
+echo ###################################################################
+echo Device:                       $device #
+echo Android version:              $Os #
+echo Status:                       $status #
+echo Serial Number:                $serial #
+echo ###################################################################
+echo.
+echo Reboot Options
+echo.
+echo 1- Reboot system
+echo 2- Reboot Recovery
+echo 3- Reboot Bootloader
+set /p S= ? :
+if %S%==1 @adb reboot goto :startui
+if %S%==2 @adb reboot recovery goto :startui
+if %S%==3 @adb reboot bootloader goto :startui
+echo Invalid Input? Try again!...
+pause goto :reb
+
+
 
