@@ -1,3 +1,10 @@
+#if it's e400 = l3
+#if it's e610 = l5
+#if it's p700 = l7
+
+
+
+
 @echo off
 cls
 color F2
@@ -50,60 +57,59 @@ goto :look
 
 
 :startui
-echo ##############################
-echo Device: $device   Android Api:
-echo Status: $status
-echo
+@SET device=
+@SET Os=
+@SET status=
+@SET serial=
 
 
-
-
-
-
-
-if [ ! -e tools/deodex_files/api_level.txt ]
-then
-  api_level=UNKNOWN
-else
-
-  # Fix Linux issue with carriage returns
-  sed -i -e '/^$/d' tools/deodex_files/api_level.txt
-  api_level=`more tools/deodex_files/api_level.txt | sed 's/[ ]*$//g'`
-  if [ "$api_level" == "" ]
-  then
-    api_level=UNKNOWN
-  fi
-fi  
-
-echo $api_level
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:look
-echo Plug your phone in
-#see what device is currently plugged in
-#if it's e400 = l3
-#if it's e610 = l5
-#if it's p700 = l7
-
-if %S%==1 goto menu1
+echo ###################################################################
+echo Device:                       $device #
+echo Android version:              $Os #
+echo Status:                       $status #
+echo Serial Number:                $serial #
+echo ###################################################################
+echo.
+echo.
+echo Choose What Do you Want to Do
+echo.
+echo.
+echo.
+echo 1- Unlock Bootloader
+echo 2- Sync
+echo 3- Root
+echo 4- Backup and Restore
+echo 5- Run Shell
+echo 6- Reboot into
+echo.
+echo.
+echo.
+echo 0-Exit
+echo.
+set /p S= PLEASE SELECT AN OPTION NOW :
+if %S%==1 goto Bootloader
 if %S%==2 goto sync
-if %S%==3 goto testnm
-if %S%==5 goto advanced
+if %S%==3 goto Root
+if %S%==5 goto shelll
 if %S%==4 goto backupc
+if %S%==6 goto reb
 if %S%==0 goto exit
+echo.
+echo Invalid Input? Try again!...
+pause goto :startui
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @
