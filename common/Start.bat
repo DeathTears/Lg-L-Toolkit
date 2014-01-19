@@ -168,6 +168,7 @@ goto startui
 
 
 :Recovery
+cls
 echo ###################################################################
 echo -->Device:
 adb shell grep ro.product.model= system/build.prop
@@ -183,11 +184,122 @@ echo Serial Number:
 adb get-serialno
 echo ####################################################################
 echo.
-echo Install an app
+echo Installing recovery....
+echo ----->Your Bootloader must be UNLOCKED, if not go back and unlock it
 echo.
-# --> have to finish this
+echo.
+echo.
+echo Choose your Device (look at codename above)
+echo.
+echo 1- e400
+echo 2- e610
+echo 3- p700
+echo.
+echo 0- Go back
+echo.
+set /p S= ? :
+if %S%==1 goto l3rec
+if %S%==2 goto l5rec
+if %S%==3 goto l7rec
+if %S%==0 goto startui
+echo.
+echo Invalid Input? Try again!...
+pause goto Installmenu
+
+:l3rec
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Installing recovery....
+echo.
+echo.
+echo.
+echo Installing CWM recovery on your Lg L3 (e400)....
+@adb reboot bootloader
+@fastboot devices
+echo Installing.......
+@fastboot flash recovery C:\LgTool\Lg-l3\Recovery\recovery.img
+@fastboot reboot
+echo Done!
+pause
+goto Installmenu
 
 
+:l5rec
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Installing recovery....
+echo.
+echo.
+echo.
+echo Installing CWM recovery on your Lg L5 (e610)....
+@adb reboot bootloader
+@fastboot devices
+echo Installing.......
+@fastboot flash recovery C:\LgTool\Lg-l5\Recovery\recovery.img
+@fastboot reboot
+echo Done!
+pause
+goto Installmenu
+
+
+:l7rec
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Installing recovery....
+echo.
+echo.
+echo.
+echo Installing CWM recovery on your Lg L7 (p700)....
+@adb reboot bootloader
+@fastboot devices
+echo Installing.......
+@fastboot flash recovery C:\LgTool\Lg-l7\Recovery\recovery.img
+@fastboot reboot
+echo Done!
+pause
+goto Installmenu
 
 
 #Bootloader -----------------------------------------------------------------------------------------
@@ -297,21 +409,47 @@ echo.
 echo 1- Reboot into..
 echo 2- Run Shell
 echo 3- Disable Lock screen Password/Pattern
-echo 4- Take a screensot
-echo 5- Record Screen (4.4+ ONLY)
+echo 4- Record Screen (4.4+ ONLY)
 echo.
 echo 0- Go back
 set /p S= ? :
 if %S%==1 reb
 if %S%==2 shelll
 if %S%==3 crack
-if %S%==4 Scre
 if %S%==3 Reco
 echo Invalid Input? Try again!...
 pause goto advanced
 
-
-
+:Reco
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Screen recorder
+echo You need a 4.4 rom ( Look at API above, if it's 19 it's ok)
+echo.
+echo.
+echo.
+echo Press ctrl + c when u want to stop it
+@adb shell mkdir /sdcard/tmp
+adb shell screenrecord /sdcard/tmp/video.mp4
+@adb pull /sdcard/tmp/video.mp4 C:\LgTool\Pulled\
+@adb shell rm -r /sdcard/tmp
+echo Done!
+pause
+goto advanced
 
 :shelll
 cls
@@ -431,17 +569,11 @@ echo Choose what you want to do
 echo.
 echo 1- Push a file from pc to phone
 echo 2- Pull a file from phone to pc
-echo 3- Import Photos
-echo 4- Import Music
-echo 5- Export Music
 echo.
 echo 0- Go back
 set /p S= ? :
 if %S%==1 goto pussh
 if %S%==2 goto pulll
-if %S%==3 goto photos
-if %S%==4 goto music1
-if %S%==5 goto music2
 if %S%==0 goto advanced
 echo Invalid Input? Try again!...
 pause goto sync
