@@ -47,7 +47,7 @@ echo    ##                           BBBBBi     MBBBBj                          
 echo    ##                             ii         ii                             ## 
 echo    ##                                                                       ## 
 echo    ##                                                                       ##
-echo    ##              Lg L Toolkit    by linuxx and theOwner997                ##
+echo    ##              Lg L Toolkit    by linuxx and theowner997                ##
 echo    ##                                                                       ##
 echo    ###########################################################################
 ECHO.
