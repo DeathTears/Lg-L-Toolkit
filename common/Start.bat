@@ -55,72 +55,188 @@ pause
 color 2
 goto startui
 
+#Start Menu --------------------------------------------------------------------------------------------
 
 :startui
 cls
 echo ###################################################################
-echo Device:
-adb shell cat /system/build.prop | grep "ro.product.device"
-echo Android version:
-adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
 echo Status:
 adb get-state
 echo Serial Number:
 adb get-serialno
-echo ###################################################################echo.
+echo ####################################################################
+echo.
 echo.
 echo Choose What Do you Want to Do
 echo.
 echo.
 echo.
-echo 1- Unlock Bootloader
-echo 2- Sync
+echo 1- Install
+echo 2- Unlock Bootloader
 echo 3- Root
 echo 4- Backup and Restore
-echo 5- Run Shell
-echo 6- Reboot into
+echo 5- Sync
+echo.
+echo 6- Advanced
 echo.
 echo.
 echo.
 echo 0-Exit
 echo.
 set /p S= ? :
-if %S%==1 goto Bootloader
-if %S%==2 goto sync
+if %S%==1 goto Installmenu
+if %S%==2 goto Bootloader
 if %S%==3 goto Root
-if %S%==5 goto shelll
+if %S%==5 goto sync
 if %S%==4 goto backupc
-if %S%==6 goto reb
+if %S%==6 goto advanced
 if %S%==0 goto exit
 echo.
 echo Invalid Input? Try again!...
 pause goto startui
 
+#Install --------------------------------------------------------------------------------------------------------
 
-:Bootloadercls
+:Installmenu
 cls
 echo ###################################################################
-echo Device:
-adb shell cat /system/build.prop | grep "ro.product.device"
-echo Android version:
-adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
 echo Status:
 adb get-state
 echo Serial Number:
 adb get-serialno
-echo ###################################################################
+echo ####################################################################
 echo.
+echo Install Menu
+echo.
+echo.
+echo.
+echo 1- Install an app
+echo 2- Install a recovery
+echo.
+echo 0- Go Back
+echo.
+set /p S= ? :
+if %S%==1 goto installapk
+if %S%==2 goto Recovery
+if %S%==0 goto startui
+echo.
+echo Invalid Input? Try again!...
+pause goto Installmenu
+
+
+
+:installapk
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Install an app
+echo.
+SET /P APK= Drag your apk file here, then press Enter
+adb install %APK%
+pause
+goto startui
+
+
+
+:Recovery
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Install an app
+echo.
+# --> have to finish this
+
+
+
+
+#Bootloader -----------------------------------------------------------------------------------------
+
+:Bootloader
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ####################################################################
+echo.
+echo Unlock Bootloader
+echo.
+echo.
+echo.
+echo Select your model (look at CODENAME)
+echo.
+set /p S= ? :
 if %device==e400 echo Your lg l3 is already Unlocked
 if %device==e610 C:\Lg-l5\Bootloader\unlock.bat
 if %device==p700 C:\Lg-l7\bootloader\unlock.bat
+echo.
+echo Invalid Input? Try again!...
+pause goto Bootloader
+
+#Root -----------------------------------------------------------------------------------------------------
+
 
 :Root
 cls
 echo ###################################################################
-echo Device:
-adb shell cat /system/build.prop | grep "ro.product.device"
-echo Android version:
-adb shell cat /system/build.prop | grep "ro.build.release.version.device"
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
 echo Status:
 adb get-state
 echo Serial Number:
@@ -129,10 +245,14 @@ echo ###################################################################
 echo.
 echo Root Phone
 echo.
+echo.
+echo.
+echo Make sure You have already installed a custom recovery,
+echo if not close this and select Install>Custom Recovery
+pause
 @adb reboot recovery
 echo Waiting for device...
 @adb wait-for-device
-SET status= $adb get-state
 @adb push root/update.zip /sdcard/
 @adb push root/update.zip /emmc/
 echo Now Select Install zip from sdcard
@@ -147,17 +267,67 @@ pause
 echo Done !
 goto startui
 
+
+
+
+#advanced -----------------------------------------------------------------------------------------------------
+:advanced
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Advanced Menu
+echo.
+echo.
+echo.
+echo Choose what you want to do
+echo.
+echo 1- Reboot into..
+echo 2- Run Shell
+echo 3- Disable Lock screen Password/Pattern
+echo 4- Take a screensot
+echo 5- Record Screen (4.4+ ONLY)
+echo.
+echo 0- Go back
+set /p S= ? :
+if %S%==1 reb
+if %S%==2 shelll
+if %S%==3 crack
+if %S%==4 Scre
+if %S%==3 Reco
+echo Invalid Input? Try again!...
+pause goto advanced
+
+
+
+
 :shelll
 cls
-SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
-SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
-SET status= $adb get-state
-SET serial= $adb get-serialno
 echo ###################################################################
-echo Device:                       $device #
-echo Android version:              $Os #
-echo Status:                       $status #
-echo Serial Number:                $serial #
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
 echo ###################################################################
 echo.
 echo Shell
@@ -165,17 +335,23 @@ echo.
 echo Type exit when you've done!
 adb shell
 
+
+
 :reb
 cls
-SET device= $adb shell cat /system/build.prop | grep "ro.product.device"
-SET Os= $adb shell cat /system/build.prop | grep "ro.build.release.version.device"
-SET status= $adb get-state
-SET serial= $adb get-serialno
 echo ###################################################################
-echo Device:                       $device #
-echo Android version:              $Os #
-echo Status:                       $status #
-echo Serial Number:                $serial #
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
 echo ###################################################################
 echo.
 echo Reboot Options
@@ -189,6 +365,3 @@ if %S%==2 @adb reboot recovery goto :startui
 if %S%==3 @adb reboot bootloader goto :startui
 echo Invalid Input? Try again!...
 pause goto reb
-
-
-
