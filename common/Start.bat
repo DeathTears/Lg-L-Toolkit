@@ -365,3 +365,136 @@ if %S%==2 @adb reboot recovery goto :startui
 if %S%==3 @adb reboot bootloader goto :startui
 echo Invalid Input? Try again!...
 pause goto reb
+
+
+
+:crack
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Disable Lock Screen Pattern / Password
+echo.
+echo.
+echo --->Your Phone must be in RECOVERY MODE!!!!!!
+echo ---> GO TO "MOUNTS AND STORAGE" AND SELECT "MOUNT /DATA"
+PAUSE
+echo.
+echo What do you want to remove?
+echo.
+echo 1- Pattern
+echo 2- Password
+echo.
+echo 0- Go back
+set /p S= ? :
+if %S%==1 @adb shell rm /data/system/gesture.key
+if %S%==2 @adb shell rm /data/system/gesture.key
+if %S%==0 goto advanced
+echo Invalid Input? Try again!...
+pause goto crack
+
+#Sync ------------------------------------------------------------------------------------------------------------
+:sync
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Sync Menu
+echo.
+echo.
+echo.
+echo Choose what you want to do
+echo.
+echo 1- Push a file from pc to phone
+echo 2- Pull a file from phone to pc
+echo 3- Import Photos
+echo 4- Import Music
+echo 5- Export Music
+echo.
+echo 0- Go back
+set /p S= ? :
+if %S%==1 goto pussh
+if %S%==2 goto pulll
+if %S%==3 goto photos
+if %S%==4 goto music1
+if %S%==5 goto music2
+if %S%==0 goto advanced
+echo Invalid Input? Try again!...
+pause goto sync
+
+:pussh
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Push a file
+echo.
+echo.
+echo.
+SET /P PUSH= Drag the file you want to pus here, then press ENTER
+adb push %PUSH% sdcard/
+pause
+goto sync
+
+:pulll
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Push a file "to C:\LgTool\Pulled"
+echo.
+echo.
+echo.
+SET /P FIDIR= Type here File path (It can not contain spaces) :
+SET /P PUSH= Drag the file you want to pus here, then press ENTER
+adb pull %FIDIR% C:\LgTool\Pulled\
+pause
+goto sync
