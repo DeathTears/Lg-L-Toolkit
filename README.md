@@ -29,7 +29,7 @@ What's Working?
 
 - Root
 
-- Device inofs
+- Device infos
 
 - Menus
 
