@@ -94,7 +94,7 @@ echo.
 set /p S= ? :
 if %S%==1 goto Installmenu
 if %S%==2 goto Bootloader
-if %S%==3 goto Root
+if %S%==3 C:\LgTool\common\Root.bat
 if %S%==5 goto sync
 if %S%==4 goto backupc
 if %S%==6 goto advanced
@@ -326,59 +326,17 @@ echo.
 echo.
 echo.
 echo Select your model (look at CODENAME)
+echo 1- Lg L5 E610
+echo 2- Lg L7 P700
 echo.
+echo 0- Go back
 set /p S= ? :
-if %device==e400 echo Your lg l3 is already Unlocked
-if %device==e610 C:\Lg-l5\Bootloader\unlock.bat
-if %device==p700 C:\Lg-l7\bootloader\unlock.bat
+if %S%==1 C:\Lg-l5\Bootloader\unlock.bat
+if %S%==2 C:\Lg-l7\bootloader\unlock.bat
+if %S%==0 goto startui
 echo.
 echo Invalid Input? Try again!...
 pause goto Bootloader
-
-#Root -----------------------------------------------------------------------------------------------------
-
-
-:Root
-cls
-echo ###################################################################
-echo -->Device:
-adb shell grep ro.product.model= system/build.prop
-echo -->Codename
-adb shell grep ro.product.device= system/build.prop
-echo -->Android version:
-adb shell grep ro.build.version.release= system/build.prop
-echo -->Api:
-adb shell grep ro.build.version.sdk= system/build.prop
-echo Status:
-adb get-state
-echo Serial Number:
-adb get-serialno
-echo ###################################################################
-echo.
-echo Root Phone
-echo.
-echo.
-echo.
-echo Make sure You have already installed a custom recovery,
-echo if not close this and select Install>Custom Recovery
-pause
-@adb reboot recovery
-echo Waiting for device...
-@adb wait-for-device
-@adb push root/update.zip /sdcard/
-@adb push root/update.zip /emmc/
-echo Now Select Install zip from sdcard
-echo Choose Install Update.zip
-pause
-echo Wait until it works...
-echo Press any key ONLY when it finish (It will say Done!)
-pause
-@adb shell rm /sdcard/update.zip
-@adb shell rm /emmc/update.zip
-@adb reboot
-echo Done !
-goto startui
-
 
 
 
