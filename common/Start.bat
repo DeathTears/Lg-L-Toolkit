@@ -569,11 +569,13 @@ echo Choose what you want to do
 echo.
 echo 1- Push a file from pc to phone
 echo 2- Pull a file from phone to pc
+echo 3- Import Photos
 echo.
 echo 0- Go back
 set /p S= ? :
 if %S%==1 goto pussh
 if %S%==2 goto pulll
+if %S%==3 goto photo
 if %S%==0 goto advanced
 echo Invalid Input? Try again!...
 pause goto sync
@@ -625,8 +627,37 @@ echo Push a file "to C:\LgTool\Pulled"
 echo.
 echo.
 echo.
-SET /P FIDIR= Type here File path (It can not contain spaces) :
-SET /P PUSH= Drag the file you want to pus here, then press ENTER
+SET /P FIDIR= Type here File path (It can NOT contain spaces) :
 adb pull %FIDIR% C:\LgTool\Pulled\
 pause
+goto sync
+
+:photo
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Import Camera Photos
+echo.
+echo.
+echo.
+echo Photos will be pull to "C:\LgTool\Pulled"
+echo.
+pause
+echo Copying camera photos...
+@adb pull /sdcard/DCIM C:\LgTool\Pulled\
+echo Done!
+pause 
 goto sync
