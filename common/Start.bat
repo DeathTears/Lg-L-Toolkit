@@ -369,12 +369,18 @@ echo 2- Run Shell
 echo 3- Disable Lock screen Password/Pattern
 echo 4- Record Screen (4.4+ ONLY)
 echo.
+echo 5- Credits and License
+echo.
+echo 0- Go Back
+echo.
 echo 0- Go back
 set /p S= ? :
-if %S%==1 reb
-if %S%==2 shelll
-if %S%==3 crack
-if %S%==3 Reco
+if %S%==1 goto reb
+if %S%==2 goto shelll
+if %S%==3 goto crack
+if %S%==3 goto Reco
+if %S%==0 goto startui
+if %S%==5 goto credit
 echo Invalid Input? Try again!...
 pause goto advanced
 
@@ -430,7 +436,8 @@ echo Shell
 echo.
 echo Type exit when you've done!
 adb shell
-
+pause
+goto advanced
 
 
 :reb
@@ -455,10 +462,13 @@ echo.
 echo 1- Reboot system
 echo 2- Reboot Recovery
 echo 3- Reboot Bootloader
+echo.
+echo 0- Go Back
 set /p S= ? :
-if %S%==1 @adb reboot goto :startui
-if %S%==2 @adb reboot recovery goto :startui
-if %S%==3 @adb reboot bootloader goto :startui
+if %S%==1 @adb reboot goto startui
+if %S%==2 @adb reboot recovery goto startui
+if %S%==3 @adb reboot bootloader goto startui
+if %S%==0 goto advanced
 echo Invalid Input? Try again!...
 pause goto reb
 
@@ -500,6 +510,62 @@ if %S%==2 @adb shell rm /data/system/gesture.key
 if %S%==0 goto advanced
 echo Invalid Input? Try again!...
 pause goto crack
+
+:credit
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Credits:
+echo.
+echo.
+echo.
+echo -> Linuxx [Program  and Scripts Developement]
+echo -> TheOwner997 [Testing and Unlock Bootloader Scripts]
+echo.
+echo.
+echo.
+echo.
+echo License and Sources
+echo.
+echo.
+echo.
+echo -> Relased Under Apache License 2.0 
+echo   Obtain a Free Copy Here: http://www.apache.org/licenses/
+echo.
+echo -> Lg L Tool is Full Open Source
+echo   http://github.com/ionolinuxnoparty/Lg-L-Toolkit/
+echo    If you want to improve it or tell us a bug you found,
+echo    open a issue and tell us everything.
+echo.
+echo.
+echo.
+echo.
+echo Disclaimer
+echo.
+echo We are not responsible for bricked devices, dead SD cards,
+echo thermonuclear war, or you getting fired because the alarm app failed. Please
+echo ask if you have any concerns about features included in this ROM
+echo before flashing it! YOU are choosing to make these modifications, and if
+echo you point the finger at us for messing up your device,
+echo We will laugh at you.
+echo.
+echo.
+echo.
+pause
+goto advanced
 
 #Sync ------------------------------------------------------------------------------------------------------------
 :sync

@@ -14,18 +14,18 @@ echo MBBG
 echo MBBG
 echo MBBG
 echo MBBG
-echo MBBG     ToolKit                ----       Setup
+echo MBBG       ToolKit                ----       Setup
 echo MBBG
-echo MBBG                     By Linuxx
-echo MBBG                              and
-echo MBBG                          theOwner997
-echo MBBG
-echo MBBG
+echo MBBG                                     By Linuxx
+echo MBBG                                   and
+echo MBBG                             theOwner997
 echo MBBG
 echo MBBG
-echo MBBGGGGGGGGGGGGGHHHHHIIIIIIIIIIIII
-echo MBBBBBBBBBBBBBBBBBBBBBBGGGGGGGGHHI
-echo MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMI
+echo MBBG
+echo MBBG
+echo MBBGGGGGGGGGGGGGHHHHHIIIIIII
+echo MBBBBBBBBBBBBBBBBGGGGGGGGHHI
+echo MMMMMMMMMMMMMMMMMMMMMMMMMMMI
 echo.
 echo.
 pause
