@@ -89,27 +89,17 @@ adb shell mv /emmc/supersu /tmp/
 @adb shell rm /Maps.apk
 @adb shell rm /GMS_Maps.apk
 @adb shell rm /YouTube.apk
-@adb shell set_perm 0 0 0777 /system/bin/.ext
-@adb shell set_perm 0 0 06755 /system/bin/.ext/.su
-@adb shell set_perm 0 0 06755 /system/xbin/su
-@adb shell set_perm 0 0 0755 /system/xbin/daemonsu
-@adb shell set_perm 0 0 0755 /system/etc/install-recovery.sh
-@adb shell set_perm 0 0 0755 /system/etc/init.d/99SuperSUDaemon
-@adb shell set_perm 0 0 0644 /system/etc/.installed_su_daemon
-@adb shell set_perm 0 0 0644 /system/app/Superuser.apk
-@adb shell set_perm 0 0 0644 /system/app/Maps.apk
-@adb shell set_perm 0 0 0644 /system/app/GMS_Maps.apk
-@adb shell set_perm 0 0 0644 /system/app/YouTube.apk
-@adb shell ch_con /system/bin/.ext/.su
-@adb shell ch_con /system/xbin/su
-@adb shell ch_con /system/xbin/daemonsu
-@adb shell ch_con /system/etc/install-recovery.sh
-@adb shell ch_con /system/etc/init.d/99SuperSUDaemon
-@adb shell ch_con /system/etc/.installed_su_daemon
-@adb shell ch_con /system/app/Superuser.apk
-@adb shell ch_con /system/app/Maps.apk
-@adb shell ch_con /system/app/GMS_Maps.apk
-@adb shell ch_con /system/app/YouTube.apk
+@adb shell chmod 777 /system/bin/.ext
+@adb shell chmod 6755 /system/bin/.ext/.su
+@adb shell chmod 6755 /system/xbin/su
+@adb shell chmod 755 /system/xbin/daemonsu
+@adb shell chmod 755 /system/etc/install-recovery.sh
+@adb shell chmod 755 /system/etc/init.d/99SuperSUDaemon
+@adb shell chmod 644 /system/etc/.installed_su_daemon
+@adb shell chmod 644 /system/app/Superuser.apk
+@adb shell chmod 644 /system/app/Maps.apk
+@adb shell chmod 644 /system/app/GMS_Maps.apk
+@adb shell chmod 644 /system/app/YouTube.apk
 @adb shell /system/xbin/su --install
 @adb shell umount /system
 @adb shell umount /data
