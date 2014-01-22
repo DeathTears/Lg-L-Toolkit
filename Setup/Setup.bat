@@ -43,6 +43,6 @@ echo.
 @mkdir C:\LgTool\common
 @copy common\RootC:\LgTool\common\
 @copy common\Backup C:\LgTool\common\
-@copy Start.exe C:\LgTool\
+@copy common\Start.bat C:\LgTool\
 @echo Done!
-C:\LgTool\Start.exe
+C:\LgTool\Start.bat
