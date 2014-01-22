@@ -685,3 +685,86 @@ echo Copying camera photos...
 echo Done!
 pause 
 goto sync
+
+#Backup ----------------------------------------------------------------------------------------------------------
+
+:backupc
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Backup and Restore
+echo.
+echo.
+echo.
+echo Choose
+echo.
+echo 1- Backup phone
+echo 2- Restore a backup
+echo.
+echo 0- Go Back
+set /p S= ? :
+if %S%==1 goto bac
+if %S%==2 goto res
+if %S%==0 goto startui
+echo Invalid Input? Try again!...
+pause goto backupc
+
+:bac
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Backup
+SET /P BUN= Type the name of the backup (no spaces):
+adb backup -apk -noshared - nosystem -f C:\LgTool\common\Backup\%BUN%.ab
+pause
+goto backupc
+
+
+:res
+cls
+echo ###################################################################
+echo -->Device:
+adb shell grep ro.product.model= system/build.prop
+echo -->Codename
+adb shell grep ro.product.device= system/build.prop
+echo -->Android version:
+adb shell grep ro.build.version.release= system/build.prop
+echo -->Api:
+adb shell grep ro.build.version.sdk= system/build.prop
+echo Status:
+adb get-state
+echo Serial Number:
+adb get-serialno
+echo ###################################################################
+echo.
+echo Backup
+SET /P BUN= Type the name of the backup (no spaces):
+adb restore C:\LgTool\common\Backup\%BUN%.ab
+pause
+goto backupc
