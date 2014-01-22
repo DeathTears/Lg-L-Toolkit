@@ -505,8 +505,8 @@ echo 2- Password
 echo.
 echo 0- Go back
 set /p S= ? :
-if %S%==1 @adb shell rm /data/system/gesture.key
-if %S%==2 @adb shell rm /data/system/gesture.key
+if %S%==1 @adb shell su -c 'rm /data/system/gesture.key'
+if %S%==2 @adb shell su -c 'rm /data/system/gesture.key'
 if %S%==0 goto advanced
 echo Invalid Input? Try again!...
 pause goto crack
