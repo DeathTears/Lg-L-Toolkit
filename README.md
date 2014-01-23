@@ -8,10 +8,7 @@ To-DO-LIST
 
 -----------------
 
-
-- Setup
-
-- Backup and restore
+-Make a Better Setup
 
 - You tell me
 
@@ -43,3 +40,6 @@ What's Working?
 
 - recovery installation
 
+- Backup and restore
+
+-Setup
